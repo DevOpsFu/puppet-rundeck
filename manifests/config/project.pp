@@ -141,7 +141,6 @@ define rundeck::config::project(
   }
 
   $node_executor_settings_defaults = {
-    setting => "project.${name}"
     path    => $properties_file,
     require => File[$properties_file]
   }
