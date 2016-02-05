@@ -38,6 +38,7 @@
 define rundeck::config::project(
   $file_copier_provider   = $rundeck::params::file_copier_provider,
   $node_executor_provider = $rundeck::params::node_executor_provider,
+  $node_executor_settings = {},
   $resource_sources       = $rundeck::params::resource_sources,
   $framework_config       = $rundeck::framework_config,
   $user                   = $rundeck::user,
@@ -138,4 +139,13 @@ define rundeck::config::project(
     value   => $node_executor_provider,
     require => File[$properties_file]
   }
+
+  $node_executor_settings_defaults = {
+    path    => $properties_file,
+    require => File[$properties_file]
+  }
+
+
+  create_ini_settings($node_executor_settings, $node_executor_settings_defaults)
+
 }
