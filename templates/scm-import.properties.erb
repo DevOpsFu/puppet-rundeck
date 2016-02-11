@@ -1,0 +1,30 @@
+
+
+scm.import.enabled=<%= @scm_import_config['enabled'] %>
+
+scm.import.config.format=<%= @scm_import_config['format'] %>
+scm.import.config.dir=<%= @scm_import_config['dir'] %>
+scm.import.config.pathTemplate=<%= @scm_import_config['pathtemplate'] %>
+
+scm.import.config.strictHostKeyChecking=<%= @scm_import_config['stricthostkeychecking'] %>
+scm.import.config.sshPrivateKeyPath=<%= @scm_import_config['sshkeypath'] %>
+scm.import.config.gitPasswordPath=<%= @scm_import_config['sshkeypasswordpath'] %>
+
+scm.import.type=<%= @scm_import_config['type'] %>
+scm.import.config.url=<%= @scm_import_config['url'] %>
+scm.import.config.branch=<%= @scm_import_config['branch'] %>
+
+<%- if  @scm_import_config['username'] %>
+scm.import.username=<%= @scm_import_config['username'] %>
+<% end %>
+
+scm.import.roles.count=<%= @scm_import_config['roles'].count %>
+
+<%- @scm_import_config['roles'].each_with_index do |name, index| %>
+scm.import.roles.<%= index %>=<%= name %>
+<% end %>
+
+scm.import.config.useFilePattern=<%= @scm_import_config['use_file_pattern'] %>
+scm.import.config.filePattern=<%= @scm_import_config['file_pattern'] %>
+
+scm.import.trackedItems.count=0

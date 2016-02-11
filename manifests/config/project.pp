@@ -36,13 +36,19 @@
 # }
 #
 define rundeck::config::project(
-  $file_copier_provider   = $rundeck::params::file_copier_provider,
-  $node_executor_provider = $rundeck::params::node_executor_provider,
-  $node_executor_settings = {},
-  $resource_sources       = $rundeck::params::resource_sources,
-  $framework_config       = $rundeck::framework_config,
-  $user                   = $rundeck::user,
-  $group                  = $rundeck::group
+  $file_copier_provider       = $rundeck::params::file_copier_provider,
+  $node_executor_provider     = $rundeck::params::node_executor_provider,
+  $node_executor_settings     = {},
+  $resource_sources           = $rundeck::params::resource_sources,
+  $framework_config           = $rundeck::framework_config,
+  $user                       = $rundeck::user,
+  $group                      = $rundeck::group,
+  $scm_import_config_settings = {},
+  $scm_export_config_settings = {},
+  $scm_import_config_template = $rundeck::params::scm_import_config_template,
+  $scm_export_config_template = $rundeck::params::scm_export_config_template,
+  $scm_import_defaults        = $rundeck::params::scm_import_defaults,
+  $scm_export_defaults        = $rundeck::params::scm_export_defaults,
 ) {
 
   include rundeck::params
@@ -145,7 +151,43 @@ define rundeck::config::project(
     require => File[$properties_file]
   }
 
-
   create_ini_settings($node_executor_settings, $node_executor_settings_defaults)
+
+  $scm_import_config_file = "${project_dir}/etc/scm-import.properties"
+  $scm_export_config_file = "${project_dir}/etc/scm-export.properties"
+
+  if ($scm_import_config_settings) {
+      $scm_export_config = deep_merge($rundeck::params::scm_import_defaults, $scm_import_config_settings)
+
+      file { $scm_import_config_file:
+        ensure  => present,
+        owner   => $user,
+        group   => $group,
+        content => template($scm_import_config_template),
+        require => File["${project_dir}/etc"]
+      }
+  }
+  else {
+    file { $scm_import_config_file:
+      ensure  => absent,
+    }
+  }
+
+  if ($scm_export_config_settings) {
+      $scm_export_config = deep_merge($rundeck::params::scm_export_defaults, $scm_export_config_settings)
+
+      file { $scm_export_config_file:
+        ensure  => present,
+        owner   => $user,
+        group   => $group,
+        content => template($scm_export_config_template),
+        require => File["${project_dir}/etc"]
+      }
+  }
+  else {
+    file { $scm_export_config_file:
+      ensure  => absent,
+    }
+  }
 
 }
