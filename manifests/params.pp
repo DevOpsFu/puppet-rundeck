@@ -302,11 +302,10 @@ class rundeck::params {
 
   $scm_import_config_template = 'rundeck/scm-import.properties.erb'
   $scm_export_config_template = 'rundeck/scm-export.properties.erb'
-  
+
   $scm_import_defaults = {
     'enabled'          => true,
     'type'             => 'git-import',
-    'dir'              => "${project_dir}/etc",
     'pathtemplate'     => '${job.group}${job.name}.${config.format}',
     'use_file_pattern' => true,
     'file_pattern'     => '.*'
@@ -315,7 +314,6 @@ class rundeck::params {
   $scm_export_defaults = {
     'enabled'        => true,
     'type'           => 'git-export',
-    'dir'            => "${project_dir}/etc",
     'pathtemplate'   => '${job.group}${job.name}.${config.format}',
     'committer_name' => '${user.userName}',
   }
