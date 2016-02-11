@@ -156,7 +156,7 @@ define rundeck::config::project(
   $scm_dir                = { 'dir' => "${project_dir}/scm" }
 
   if ($scm_import_config_settings) {
-      $scm_import_config = deep_merge($rundeck::params::scm_import_defaults, $scm_import_config_settings, $scm_dir)
+      $scm_import_config = deep_merge($scm_dir, $rundeck::params::scm_import_defaults, $scm_import_config_settings)
 
       file { $scm_import_config_file:
         ensure  => present,
@@ -173,7 +173,7 @@ define rundeck::config::project(
   }
 
   if ($scm_export_config_settings) {
-      $scm_export_config = deep_merge($rundeck::params::scm_export_defaults, $scm_export_config_settings, $scm_dir)
+      $scm_export_config = deep_merge($scm_dir, $rundeck::params::scm_export_defaults, $scm_export_config_settings)
 
       file { $scm_export_config_file:
         ensure  => present,
