@@ -278,4 +278,23 @@ class rundeck::params {
   $rdeck_config_template = 'rundeck/rundeck-config.erb'
 
   $file_keystorage_dir = undef
+
+  $scm_import_config_template = 'rundeck/scm-import.properties.erb'
+  $scm_export_config_template = 'rundeck/scm-export.properties.erb'
+
+  $scm_import_defaults = {
+    'enabled'          => true,
+    'type'             => 'git-import',
+    'pathtemplate'     => '${job.group}${job.name}.${config.format}',
+    'use_file_pattern' => true,
+    'file_pattern'     => '.*'
+
+  }
+  $scm_export_defaults = {
+    'enabled'        => true,
+    'type'           => 'git-export',
+    'pathtemplate'   => '${job.group}${job.name}.${config.format}',
+    'committer_name' => '${user.userName}',
+  }
+
 }

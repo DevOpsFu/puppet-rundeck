@@ -1,0 +1,23 @@
+scm.export.enabled=<%= @scm_export_config['enabled'] %>
+
+scm.export.config.format=<%= @scm_export_config['format'] %>
+scm.export.config.dir=<%= @scm_export_config['dir'] %>
+scm.export.config.pathTemplate=<%= @scm_export_config['pathtemplate'] %>
+
+scm.export.config.strictHostKeyChecking=<%= @scm_export_config['stricthostkeychecking'] %>
+scm.export.config.sshPrivateKeyPath=<%= @scm_export_config['sshkeypath'] %>
+scm.export.config.gitPasswordPath=<%= @scm_export_config['sshkeypasswordpath'] %>
+
+scm.export.type=<%= @scm_export_config['type'] %>
+scm.export.config.url=<%= @scm_export_config['url'] %>
+scm.export.config.branch=<%= @scm_export_config['branch'] %>
+scm.export.config.committerEmail=<%= @scm_export_config['committer_email'] %>
+scm.export.config.committerName=<%= @scm_export_config['committer_name'] %>
+
+
+scm.export.username=<%= @scm_export_config['username'] %>
+
+scm.export.roles.count=<%= @scm_export_config['roles'].count %>
+<%- @scm_export_config['roles'].each_with_index do |name, index| %>
+scm.export.roles.<%= index %>=<%= name %>
+<% end %>
